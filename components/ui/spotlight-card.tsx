@@ -35,12 +35,27 @@ const GlowCard: React.FC<GlowCardProps> = ({
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
+  const isMobileRef = useRef(false);
 
   useEffect(() => {
+    // Check if mobile on mount
+    isMobileRef.current = window.innerWidth < 768;
+    
+    const handleResize = () => {
+      isMobileRef.current = window.innerWidth < 768;
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Only enable pointer tracking on desktop
+    if (isMobileRef.current) {
+      return () => window.removeEventListener('resize', handleResize);
+    }
+
     const syncPointer = (e: PointerEvent) => {
       const { clientX: x, clientY: y } = e;
       
-      if (cardRef.current) {
+      if (cardRef.current && !isMobileRef.current) {
         cardRef.current.style.setProperty('--x', x.toFixed(2));
         cardRef.current.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
         cardRef.current.style.setProperty('--y', y.toFixed(2));
@@ -49,7 +64,10 @@ const GlowCard: React.FC<GlowCardProps> = ({
     };
 
     document.addEventListener('pointermove', syncPointer);
-    return () => document.removeEventListener('pointermove', syncPointer);
+    return () => {
+      document.removeEventListener('pointermove', syncPointer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const { base, spread } = glowColorMap[glowColor];
@@ -87,7 +105,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       backgroundAttachment: 'fixed',
       border: 'var(--border-size) solid var(--backup-border)',
       position: 'relative',
-      touchAction: 'none',
+      touchAction: 'auto', // Allow touch scrolling on mobile
     } as React.CSSProperties;
 
     // Add width and height if provided

@@ -88,40 +88,48 @@ const Carousel = memo(
       (value) => `rotate3d(0, 1, 0, ${value}deg)`
     )
 
+    // Optimize drag sensitivity for mobile
+    const dragSensitivity = isScreenSizeSm ? 0.03 : 0.05
+    const velocityMultiplier = isScreenSizeSm ? 0.03 : 0.05
+
     return (
       <div
         className="flex h-full items-center justify-center"
         style={{
-          perspective: "1000px",
+          perspective: isScreenSizeSm ? "800px" : "1000px",
           transformStyle: "preserve-3d",
           willChange: "transform",
         }}
       >
         <motion.div
           drag={isCarouselActive ? "x" : false}
-          className="relative flex h-full origin-center cursor-grab justify-center active:cursor-grabbing"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.1}
+          className="relative flex h-full origin-center cursor-grab justify-center active:cursor-grabbing touch-none"
           style={{
             transform,
             rotateY: rotation,
             width: cylinderWidth,
             transformStyle: "preserve-3d",
           }}
-          onDrag={(_, info) =>
-            isCarouselActive &&
-            rotation.set(rotation.get() + info.offset.x * 0.05)
-          }
-          onDragEnd={(_, info) =>
-            isCarouselActive &&
-            controls.start({
-              rotateY: rotation.get() + info.velocity.x * 0.05,
-              transition: {
-                type: "spring",
-                stiffness: 100,
-                damping: 30,
-                mass: 0.1,
-              },
-            })
-          }
+          onDrag={(_, info) => {
+            if (isCarouselActive) {
+              rotation.set(rotation.get() + info.delta.x * dragSensitivity)
+            }
+          }}
+          onDragEnd={(_, info) => {
+            if (isCarouselActive) {
+              controls.start({
+                rotateY: rotation.get() + info.velocity.x * velocityMultiplier,
+                transition: {
+                  type: "spring",
+                  stiffness: isScreenSizeSm ? 80 : 100,
+                  damping: isScreenSizeSm ? 25 : 30,
+                  mass: 0.1,
+                },
+              })
+            }
+          }}
           animate={controls}
         >
           {cards.map((imgUrl, i) => (
@@ -133,18 +141,16 @@ const Carousel = memo(
                 transform: `rotateY(${
                   i * (360 / faceCount)
                 }deg) translateZ(${radius}px)`,
+                willChange: "transform",
               }}
               onClick={() => handleClick(imgUrl, i)}
             >
-              <motion.img
+              <img
                 src={imgUrl}
                 alt={`carousel_image_${i}`}
-                layoutId={`img-${imgUrl}`}
                 className="pointer-events-none w-full rounded-xl object-cover aspect-square shadow-lg"
-                initial={{ filter: "blur(4px)" }}
-                layout="position"
-                animate={{ filter: "blur(0px)" }}
-                transition={{ duration, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }}
+                loading="lazy"
+                decoding="async"
               />
             </motion.div>
           ))}
@@ -224,7 +230,7 @@ function ThreeDPhotoCarousel({ images = [] }: ThreeDPhotoCarouselProps) {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="relative h-[500px] w-full overflow-visible bg-transparent">
+      <div className="relative h-[500px] w-full overflow-visible bg-transparent touch-pan-y">
         <Carousel
           handleClick={handleClick}
           controls={controls}
