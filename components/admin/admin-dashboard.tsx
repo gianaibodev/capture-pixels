@@ -8,13 +8,14 @@ import TestimonialsEditor from './testimonials-editor';
 import ProjectsEditor from './projects-editor';
 import ClientsEditor from './clients-editor';
 import { Button } from '@/components/ui/button';
-import { Loader2, Save } from 'lucide-react';
+import { Loader2, Save, CheckCircle2, AlertCircle } from 'lucide-react';
 import { updateSiteContent } from '@/actions/content';
 
 export default function AdminDashboard({ initialContent }: { initialContent: SiteContent }) {
   const [content, setContent] = useState(initialContent);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
 
   const handleUpdate = (key: keyof SiteContent, data: any) => {
     const newContent = { ...content, [key]: data };
@@ -24,13 +25,23 @@ export default function AdminDashboard({ initialContent }: { initialContent: Sit
   const handleSave = async () => {
     setSaving(true);
     setMessage('');
+    setMessageType('');
     try {
       await updateSiteContent(content);
-      setMessage('Changes saved successfully!');
-      setTimeout(() => setMessage(''), 3000);
-    } catch (error) {
-      console.error(error);
-      setMessage('Failed to save changes.');
+      setMessage('Changes saved successfully! The site will update shortly.');
+      setMessageType('success');
+      setTimeout(() => {
+        setMessage('');
+        setMessageType('');
+      }, 5000);
+    } catch (error: any) {
+      console.error('Save error:', error);
+      setMessage(error?.message || 'Failed to save changes. Please check your Supabase connection and ensure the table exists.');
+      setMessageType('error');
+      setTimeout(() => {
+        setMessage('');
+        setMessageType('');
+      }, 8000);
     } finally {
       setSaving(false);
     }
@@ -40,16 +51,23 @@ export default function AdminDashboard({ initialContent }: { initialContent: Sit
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-card p-6 rounded-lg border shadow-sm sticky top-20 z-40">
         <div>
-          <h2 className="text-lg font-bold">Content Editor</h2>
+          <h2 className="text-lg font-bold text-foreground">Content Editor</h2>
           <p className="text-sm text-muted-foreground">
-            Make changes below and click Save to update the live site.
+            Make changes below and click Save to update the live site. Changes are saved to Supabase.
           </p>
         </div>
         <div className="flex items-center gap-4">
           {message && (
-            <span className={`text-sm font-medium ${message.includes('Failed') ? 'text-red-500' : 'text-green-500'}`}>
-              {message}
-            </span>
+            <div className={`flex items-center gap-2 text-sm font-medium ${
+              messageType === 'error' ? 'text-destructive' : 'text-green-600 dark:text-green-400'
+            }`}>
+              {messageType === 'error' ? (
+                <AlertCircle className="w-4 h-4" />
+              ) : (
+                <CheckCircle2 className="w-4 h-4" />
+              )}
+              <span>{message}</span>
+            </div>
           )}
           <Button onClick={handleSave} disabled={saving} className="min-w-[120px]">
             {saving ? (
