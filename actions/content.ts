@@ -14,13 +14,21 @@ export async function getSiteContent(): Promise<SiteContent> {
     .eq('id', CONTENT_ID)
     .single();
 
-  if (error || !data) {
+  if (error || !data || !data.content || Object.keys(data.content).length === 0) {
     // Fallback to local default content if DB is empty/error
     console.warn('Supabase fetch error or empty, using default:', error);
     return defaultContent;
   }
 
-  return data.content as SiteContent;
+  // Merge with defaults to ensure all required fields exist
+  const dbContent = data.content as Partial<SiteContent>;
+  return {
+    hero: dbContent.hero || defaultContent.hero,
+    services: dbContent.services || defaultContent.services,
+    testimonials: dbContent.testimonials || defaultContent.testimonials,
+    clients: dbContent.clients || defaultContent.clients,
+    projects: dbContent.projects || defaultContent.projects,
+  };
 }
 
 export async function updateSiteContent(newContent: SiteContent) {
@@ -52,5 +60,5 @@ export async function updateSiteContent(newContent: SiteContent) {
   }
 
   revalidatePath('/'); // Revalidate home page
+  revalidatePath('/admin'); // Revalidate admin page
 }
-
