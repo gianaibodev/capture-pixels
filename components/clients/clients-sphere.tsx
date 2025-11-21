@@ -10,7 +10,7 @@ export default function ClientsSphere({ images }: { images: ClientImage[] }) {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setSize(400);
+        setSize(500); // Increased from 400 to 500 for mobile
       } else {
         setSize(800);
       }
