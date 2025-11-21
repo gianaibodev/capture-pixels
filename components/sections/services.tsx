@@ -14,9 +14,9 @@ export default function ServicesSection() {
   const { services, hero } = siteContent;
 
   return (
-    <section id="services" className="py-32 bg-zinc-950 text-white relative">
+    <section id="services" className="py-32 bg-background relative">
        {/* Ambient Background */}
-       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-black opacity-50 pointer-events-none" />
+       <div className="absolute inset-0 bg-gradient-to-b from-muted/20 via-background to-background opacity-50 pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
@@ -25,8 +25,8 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 tracking-tighter">Our Expertise</h2>
-          <div className="w-24 h-1 bg-white/20 mx-auto rounded-full" />
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 tracking-tighter text-foreground">Our Expertise</h2>
+          <div className="w-24 h-1 bg-primary/20 mx-auto rounded-full" />
         </motion.div>
         
         <div className="grid md:grid-cols-2 gap-8 mb-32 max-w-5xl mx-auto">
@@ -41,21 +41,21 @@ export default function ServicesSection() {
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
               >
-                <div className="h-full p-8 rounded-3xl bg-zinc-900/50 border border-white/5 hover:border-white/20 hover:bg-zinc-900/80 transition-all duration-500 group cursor-pointer backdrop-blur-sm relative overflow-hidden">
+                <div className="h-full p-8 rounded-3xl bg-card/50 border border-border hover:border-primary/20 hover:bg-card transition-all duration-500 group cursor-pointer backdrop-blur-sm relative overflow-hidden">
                   {/* Hover Glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="relative z-10">
-                    <div className="mb-6 p-4 bg-white/5 w-fit rounded-2xl border border-white/10 group-hover:bg-white/10 transition-colors">
-                      <Icon className="w-8 h-8 text-white" />
+                    <div className="mb-6 p-4 bg-muted/50 w-fit rounded-2xl border border-border group-hover:bg-muted transition-colors">
+                      <Icon className="w-8 h-8 text-foreground" />
                     </div>
                     
-                    <h3 className="text-3xl font-bold mb-4 group-hover:text-blue-200 transition-colors">{service.title}</h3>
-                    <p className="text-lg text-zinc-400 leading-relaxed mb-8 group-hover:text-zinc-300 transition-colors">
+                    <h3 className="text-3xl font-bold mb-4 group-hover:text-primary transition-colors text-foreground">{service.title}</h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-8 group-hover:text-foreground transition-colors">
                       {service.description}
                     </p>
                     
-                    <div className="flex items-center text-sm font-medium text-white/50 group-hover:text-white transition-colors">
+                    <div className="flex items-center text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                       LEARN MORE <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
@@ -71,15 +71,15 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto text-center relative"
         >
-           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl -z-10 rounded-full" />
-           <div className="bg-zinc-900/80 border border-white/10 p-10 rounded-3xl backdrop-blur-xl">
-             <h3 className="text-2xl font-bold mb-8 flex items-center justify-center gap-3">
-               <MapPin className="w-6 h-6 text-blue-400" />
-               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-white">Available Locations</span>
+           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 blur-3xl -z-10 rounded-full" />
+           <div className="bg-card/80 border border-border p-10 rounded-3xl backdrop-blur-xl">
+             <h3 className="text-2xl font-bold mb-8 flex items-center justify-center gap-3 text-foreground">
+               <MapPin className="w-6 h-6 text-primary" />
+               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-foreground">Available Locations</span>
              </h3>
              <div className="flex flex-wrap justify-center gap-3">
                {hero.locations.map((loc) => (
-                 <span key={loc} className="px-5 py-2 bg-black/50 border border-white/10 rounded-full text-sm font-medium text-zinc-300 hover:text-white hover:border-white/30 transition-all cursor-default">
+                 <span key={loc} className="px-5 py-2 bg-muted/50 border border-border rounded-full text-sm font-medium text-foreground hover:bg-muted hover:border-primary/30 transition-all cursor-default">
                    {loc}
                  </span>
                ))}
