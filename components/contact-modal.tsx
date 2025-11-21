@@ -71,7 +71,7 @@ export function ContactModal({ open, onOpenChange, hero }: ContactModalProps) {
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground mb-2">Service Areas</p>
                 <div className="flex flex-wrap gap-2">
-                  {contactInfo.locations.slice(0, 4).map((loc) => (
+                  {contactInfo.locations.slice(0, 4).map((loc: string) => (
                     <span key={loc} className="text-xs px-2 py-1 bg-background rounded border border-border">
                       {loc}
                     </span>
