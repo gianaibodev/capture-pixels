@@ -1,6 +1,6 @@
 'use client';
 
-import { SiteContent } from '@/data/site-content';
+import { siteContent } from '@/data/site-content';
 import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
@@ -38,15 +38,6 @@ export default function CaptureHero({ content }: { content: SiteContent }) {
              <h3 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground drop-shadow-2xl">
                CAPTURE PIXELS
              </h3>
-             
-             <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
-                className="text-sm uppercase tracking-[0.2em] text-muted-foreground"
-             >
-               Scroll down to discover
-             </motion.p>
 
              <p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide max-w-2xl mx-auto mt-4">
                {hero.subtitle}
@@ -118,6 +109,17 @@ export default function CaptureHero({ content }: { content: SiteContent }) {
           </motion.div>
         </div>
       </ScrollExpandMedia>
+
+      {/* Scroll Instruction */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+        className="absolute bottom-8 left-0 right-0 flex flex-col items-center text-white/50 z-20 pointer-events-none"
+      >
+        <span className="text-xs uppercase tracking-[0.3em] mb-2">Scroll to Discover</span>
+        <ChevronDown className="w-6 h-6" />
+      </motion.div>
     </div>
   );
 }

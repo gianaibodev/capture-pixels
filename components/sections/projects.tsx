@@ -1,9 +1,9 @@
 'use client';
 
 import { SiteContent } from '@/data/site-content';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { GlowCard } from '@/components/ui/spotlight-card';
 
 export default function ProjectsSection({ content }: { content: SiteContent }) {
   const { projects } = content;
@@ -36,8 +36,12 @@ export default function ProjectsSection({ content }: { content: SiteContent }) {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/20 transition-colors duration-500">
-                <div className="relative w-full aspect-[4/3] overflow-hidden">
+              <GlowCard
+                glowColor={i % 3 === 0 ? 'blue' : i % 3 === 1 ? 'purple' : 'green'}
+                customSize={true}
+                className="w-full h-full overflow-hidden"
+              >
+                <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
                    <div className="absolute inset-0 bg-background/20 z-10 group-hover:bg-background/0 transition-colors duration-500" />
                    <Image 
                      src={p.imageUrl} 
@@ -65,7 +69,7 @@ export default function ProjectsSection({ content }: { content: SiteContent }) {
                     {p.description}
                   </p>
                 </div>
-              </div>
+              </GlowCard>
             </motion.div>
           ))}
         </div>

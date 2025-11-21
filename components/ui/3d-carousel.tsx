@@ -61,8 +61,8 @@ export function useMediaQuery(
 }
 
 const duration = 0.15
-const transition = { duration, ease: [0.32, 0.72, 0, 1] as const }
-const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] as const }
+const transition = { duration, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }
+const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }
 
 const Carousel = memo(
   ({
@@ -90,7 +90,7 @@ const Carousel = memo(
 
     return (
       <div
-        className="flex h-full items-center justify-center bg-background"
+        className="flex h-full items-center justify-center"
         style={{
           perspective: "1000px",
           transformStyle: "preserve-3d",
@@ -127,7 +127,7 @@ const Carousel = memo(
           {cards.map((imgUrl, i) => (
             <motion.div
               key={`key-${imgUrl}-${i}`}
-              className="absolute flex h-full origin-center items-center justify-center rounded-xl bg-background p-2"
+              className="absolute flex h-full origin-center items-center justify-center rounded-xl p-2"
               style={{
                 width: `${faceWidth}px`,
                 transform: `rotateY(${
@@ -140,7 +140,7 @@ const Carousel = memo(
                 src={imgUrl}
                 alt={`carousel_image_${i}`}
                 layoutId={`img-${imgUrl}`}
-                className="pointer-events-none w-full rounded-xl object-cover aspect-square"
+                className="pointer-events-none w-full rounded-xl object-cover aspect-square shadow-lg"
                 initial={{ filter: "blur(4px)" }}
                 layout="position"
                 animate={{ filter: "blur(0px)" }}
@@ -215,7 +215,7 @@ function ThreeDPhotoCarousel({ images = [] }: ThreeDPhotoCarouselProps) {
               transition={{
                 delay: 0.5,
                 duration: 0.5,
-                ease: [0.25, 0.1, 0.25, 1],
+                ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
               }}
               style={{
                 willChange: "transform",
@@ -237,4 +237,3 @@ function ThreeDPhotoCarousel({ images = [] }: ThreeDPhotoCarouselProps) {
 }
 
 export { ThreeDPhotoCarousel };
-
