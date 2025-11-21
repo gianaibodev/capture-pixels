@@ -61,8 +61,8 @@ export function useMediaQuery(
 }
 
 const duration = 0.15
-const transition = { duration, ease: [0.32, 0.72, 0, 1], filter: "blur(4px)" }
-const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] }
+const transition = { duration, ease: [0.32, 0.72, 0, 1] as const }
+const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] as const }
 
 const Carousel = memo(
   ({
@@ -144,7 +144,7 @@ const Carousel = memo(
                 initial={{ filter: "blur(4px)" }}
                 layout="position"
                 animate={{ filter: "blur(0px)" }}
-                transition={transition}
+                transition={{ duration, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }}
               />
             </motion.div>
           ))}
