@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export default function CarouselSection({ content }: { content: SiteContent }) {
   return (
-    <section id="gallery" className="py-32 bg-muted/20">
+    <section id="gallery" className="py-32 bg-background">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -20,8 +20,10 @@ export default function CarouselSection({ content }: { content: SiteContent }) {
           </p>
         </motion.div>
 
-        <div className="max-w-6xl mx-auto">
-          <ThreeDPhotoCarousel images={content.carouselImages} />
+        <div className="max-w-6xl mx-auto relative">
+          <div className="relative h-[500px] md:h-[600px] w-full overflow-visible">
+            <ThreeDPhotoCarousel images={content.carouselImages} />
+          </div>
         </div>
       </div>
     </section>

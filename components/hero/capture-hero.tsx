@@ -1,6 +1,6 @@
 'use client';
 
-import { siteContent } from '@/data/site-content';
+import { SiteContent } from '@/data/site-content';
 import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
