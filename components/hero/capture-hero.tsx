@@ -1,13 +1,13 @@
 'use client';
 
-import { siteContent } from '@/data/site-content';
+import { SiteContent } from '@/data/site-content';
 import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
-export default function CaptureHero() {
-  const { hero } = siteContent;
+export default function CaptureHero({ content }: { content: SiteContent }) {
+  const { hero } = content;
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -107,7 +107,7 @@ export default function CaptureHero() {
                <div className="bg-card/80 border border-border p-6 md:p-8 rounded-3xl backdrop-blur-md hover:bg-card transition-all duration-500 group">
                   <h4 className="text-foreground font-medium text-sm uppercase tracking-widest mb-6 opacity-70">Our Expertise</h4>
                    <ul className="space-y-4">
-                      {siteContent.services.map(s => (
+                      {content.services.map(s => (
                         <li key={s.title} className="flex items-center gap-4 text-lg md:text-xl text-foreground font-light group-hover:translate-x-2 transition-transform duration-300">
                           <span className="w-2 h-2 bg-primary rounded-full shadow-[0_0_10px_rgba(var(--primary),0.5)] shrink-0" />
                           {s.title}

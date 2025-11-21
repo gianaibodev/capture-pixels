@@ -1,12 +1,12 @@
 'use client';
 
-import { siteContent } from '@/data/site-content';
+import { SiteContent } from '@/data/site-content';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-export default function ProjectsSection() {
-  const { projects } = siteContent;
+export default function ProjectsSection({ content }: { content: SiteContent }) {
+  const { projects } = content;
 
   return (
     <section id="projects" className="py-32 bg-muted/30">

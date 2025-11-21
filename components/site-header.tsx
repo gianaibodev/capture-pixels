@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { ContactModal } from '@/components/contact-modal';
+import { HeroContent } from '@/data/site-content';
 
-export function SiteHeader() {
+export function SiteHeader({ hero }: { hero?: HeroContent }) {
   const [isVisible, setIsVisible] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
@@ -78,7 +79,7 @@ export function SiteHeader() {
         )}
       </AnimatePresence>
       
-      <ContactModal open={contactOpen} onOpenChange={setContactOpen} />
+      <ContactModal open={contactOpen} onOpenChange={setContactOpen} hero={hero} />
     </>
   );
 }

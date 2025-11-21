@@ -1,11 +1,10 @@
 'use client';
 
-import { siteContent } from '@/data/site-content';
+import { ClientImage } from '@/data/site-content';
 import SphereImageGrid from '@/components/ui/img-sphere';
 import { useEffect, useState } from 'react';
 
-export default function ClientsSphere() {
-  const { clients } = siteContent;
+export default function ClientsSphere({ images }: { images: ClientImage[] }) {
   const [size, setSize] = useState(600);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export default function ClientsSphere() {
   return (
     <div className="w-full flex justify-center items-center py-12 overflow-hidden">
        <SphereImageGrid
-         images={clients}
+         images={images}
          containerSize={size}
          sphereRadius={size / 2.5}
          autoRotate={true}
@@ -35,4 +34,3 @@ export default function ClientsSphere() {
     </div>
   );
 }
-

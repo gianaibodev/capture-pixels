@@ -1,19 +1,19 @@
 'use client';
 
-import { siteContent } from '@/data/site-content';
+import { SiteContent } from '@/data/site-content';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-export default function TestimonialsSection() {
-  const { testimonials } = siteContent;
+export default function TestimonialsSection({ content }: { content: SiteContent }) {
+  const { testimonials } = content;
 
   return (
     <section id="testimonials" className="py-32 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-         <div className="absolute top-1/4 left-0 w-full h-1/2 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl" />
+         <div className="absolute top-1/4 left-0 w-full h-1/2 bg-gradient-to-r from-primary/5 via-primary/5 to-primary/5 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">

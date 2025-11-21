@@ -1,6 +1,6 @@
 'use client';
 
-import { siteContent } from '@/data/site-content';
+import { SiteContent } from '@/data/site-content';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Camera, Video, MapPin, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,8 +10,8 @@ const iconMap: Record<string, any> = {
   Video
 };
 
-export default function ServicesSection() {
-  const { services, hero } = siteContent;
+export default function ServicesSection({ content }: { content: SiteContent }) {
+  const { services, hero } = content;
 
   return (
     <section id="services" className="py-32 bg-background relative">

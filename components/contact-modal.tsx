@@ -1,6 +1,6 @@
 'use client';
 
-import { siteContent } from '@/data/site-content';
+import { HeroContent } from '@/data/site-content';
 import {
   Dialog,
   DialogContent,
@@ -9,15 +9,17 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Phone, Mail, MapPin, Calendar } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 interface ContactModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  hero?: HeroContent;
 }
 
-export function ContactModal({ open, onOpenChange }: ContactModalProps) {
-  const { hero } = siteContent;
+export function ContactModal({ open, onOpenChange, hero }: ContactModalProps) {
+  // Fallback to static content if hero not provided
+  const contactInfo = hero || require('@/data/site-content').siteContent.hero;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -33,7 +35,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
           {/* Contact Methods */}
           <div className="space-y-4">
             <a 
-              href={`tel:${hero.phone}`}
+              href={`tel:${contactInfo.phone}`}
               className="flex items-center gap-4 p-4 rounded-lg border border-border hover:bg-muted transition-colors group"
             >
               <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
@@ -42,13 +44,13 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Phone</p>
                 <p className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  {hero.phone}
+                  {contactInfo.phone}
                 </p>
               </div>
             </a>
 
             <a 
-              href={`mailto:${hero.email}?subject=Booking Inquiry`}
+              href={`mailto:${contactInfo.email}?subject=Booking Inquiry`}
               className="flex items-center gap-4 p-4 rounded-lg border border-border hover:bg-muted transition-colors group"
             >
               <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
@@ -57,7 +59,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Email</p>
                 <p className="font-semibold text-foreground group-hover:text-primary transition-colors break-all">
-                  {hero.email}
+                  {contactInfo.email}
                 </p>
               </div>
             </a>
@@ -69,14 +71,14 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground mb-2">Service Areas</p>
                 <div className="flex flex-wrap gap-2">
-                  {hero.locations.slice(0, 4).map((loc) => (
+                  {contactInfo.locations.slice(0, 4).map((loc) => (
                     <span key={loc} className="text-xs px-2 py-1 bg-background rounded border border-border">
                       {loc}
                     </span>
                   ))}
-                  {hero.locations.length > 4 && (
+                  {contactInfo.locations.length > 4 && (
                     <span className="text-xs px-2 py-1 text-muted-foreground">
-                      +{hero.locations.length - 4} more
+                      +{contactInfo.locations.length - 4} more
                     </span>
                   )}
                 </div>
@@ -90,7 +92,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
               asChild
               className="flex-1"
             >
-              <a href={`tel:${hero.phone}`}>
+              <a href={`tel:${contactInfo.phone}`}>
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
@@ -100,7 +102,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
               asChild
               className="flex-1"
             >
-              <a href={`mailto:${hero.email}?subject=Booking Inquiry`}>
+              <a href={`mailto:${contactInfo.email}?subject=Booking Inquiry`}>
                 <Mail className="w-4 h-4 mr-2" />
                 Send Email
               </a>
@@ -111,4 +113,3 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
     </Dialog>
   );
 }
-
