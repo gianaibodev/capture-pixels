@@ -10,6 +10,7 @@ import ServicesSection from '@/components/sections/services';
 import ProjectsSection from '@/components/sections/projects';
 import ClientsSection from '@/components/sections/clients';
 import TestimonialsSection from '@/components/sections/testimonials';
+import CarouselSection from '@/components/sections/carousel';
 import FacebookSection from '@/components/sections/facebook-cta';
 import { CustomCursor } from '@/components/custom-cursor';
 
@@ -27,6 +28,7 @@ export function HomeContent({ content }: HomeContentProps) {
     ...content.projects.map(p => p.imageUrl),
     ...content.clients.map(c => c.src),
     ...content.testimonials.map(t => t.avatarUrl),
+    ...content.carouselImages,
   ].filter(Boolean) as string[];
 
   return (
@@ -45,6 +47,7 @@ export function HomeContent({ content }: HomeContentProps) {
           <CaptureHero content={content} />
           <ServicesSection content={content} />
           <ProjectsSection content={content} />
+          <CarouselSection content={content} />
           <ClientsSection content={content} />
           <TestimonialsSection content={content} />
           <FacebookSection />
@@ -54,4 +57,3 @@ export function HomeContent({ content }: HomeContentProps) {
     </>
   );
 }
-

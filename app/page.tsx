@@ -1,3 +1,13 @@
+import CaptureHero from '@/components/hero/capture-hero';
+import { SiteFooter } from '@/components/site-footer';
+import { SiteHeader } from '@/components/site-header';
+import ServicesSection from '@/components/sections/services';
+import ProjectsSection from '@/components/sections/projects';
+import ClientsSection from '@/components/sections/clients';
+import TestimonialsSection from '@/components/sections/testimonials';
+import CarouselSection from '@/components/sections/carousel';
+import FacebookSection from '@/components/sections/facebook-cta';
+import { CustomCursor } from '@/components/custom-cursor';
 import { getSiteContent } from '@/actions/content';
 import { HomeContent } from '@/components/home-content';
 

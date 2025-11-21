@@ -28,6 +28,7 @@ export async function getSiteContent(): Promise<SiteContent> {
     testimonials: dbContent.testimonials || defaultContent.testimonials,
     clients: dbContent.clients || defaultContent.clients,
     projects: dbContent.projects || defaultContent.projects,
+    carouselImages: dbContent.carouselImages || defaultContent.carouselImages,
   };
 }
 

@@ -3,8 +3,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trash2, Plus, GripVertical } from 'lucide-react';
+import { Trash2, Plus } from 'lucide-react';
 import Image from 'next/image';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function ClientsEditor({ data, onChange }: { data: ClientImage[], onChange: (d: ClientImage[]) => void }) {
   
@@ -14,7 +15,7 @@ export default function ClientsEditor({ data, onChange }: { data: ClientImage[],
       src: 'https://images.unsplash.com/photo-1758178309498-036c3d7d73b3?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=987',
       alt: 'New Client Image',
       title: 'Client Photo',
-      description: 'Description'
+      description: 'Add a description for this image'
     };
     // Add to beginning so it's easier to see
     onChange([newImg, ...data]);
@@ -33,7 +34,7 @@ export default function ClientsEditor({ data, onChange }: { data: ClientImage[],
       <div className="flex justify-between items-center">
         <div>
           <h3 className="text-lg font-semibold">Clients Sphere Images</h3>
-          <p className="text-sm text-muted-foreground">Manage images shown in the 3D sphere. Add direct image URLs.</p>
+          <p className="text-sm text-muted-foreground">Manage images shown in the 3D sphere. Add descriptions that appear when clicking images.</p>
         </div>
         <Button onClick={addImage} size="sm"><Plus className="w-4 h-4 mr-2" /> Add Image</Button>
       </div>
@@ -47,6 +48,9 @@ export default function ClientsEditor({ data, onChange }: { data: ClientImage[],
                 alt={img.alt} 
                 fill 
                 className="object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=Invalid+URL';
+                }}
               />
               <Button 
                 variant="destructive" 
@@ -72,6 +76,16 @@ export default function ClientsEditor({ data, onChange }: { data: ClientImage[],
                     value={img.title || ''} 
                     onChange={(e) => updateImage(img.id, 'title', e.target.value)} 
                     className="h-8 text-xs"
+                    placeholder="Image title"
+                  />
+               </div>
+               <div className="space-y-1">
+                  <Label className="text-xs">Description</Label>
+                  <Textarea 
+                    value={img.description || ''} 
+                    onChange={(e) => updateImage(img.id, 'description', e.target.value)} 
+                    className="text-xs min-h-[60px]"
+                    placeholder="Description shown in modal when clicked"
                   />
                </div>
             </CardContent>
@@ -81,4 +95,3 @@ export default function ClientsEditor({ data, onChange }: { data: ClientImage[],
     </div>
   );
 }
-

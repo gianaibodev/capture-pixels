@@ -48,6 +48,7 @@ export interface SiteContent {
   testimonials: Testimonial[];
   clients: ClientImage[];
   projects: Project[];
+  carouselImages: string[]; // Array of image URLs for 3D carousel
 }
 
 // Helper to generate client images
@@ -92,7 +93,7 @@ const generateClientImages = (): ClientImage[] => {
   ];
 
   const images: ClientImage[] = [];
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 50; i++) {
     const base = baseImages[i % baseImages.length];
     images.push({
       id: `img-${i + 1}`,
@@ -109,7 +110,7 @@ export const siteContent: SiteContent = {
   hero: {
     mediaType: 'video',
     mediaSrc: 'https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1', 
-    posterSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop', // High quality space/tech bg
+    posterSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop',
     bgImageSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop',
     title: 'Capture Pixels',
     subtitle: 'Memories that lasts a lifetime',
@@ -197,5 +198,15 @@ export const siteContent: SiteContent = {
        date: 'Oct 2023',
        tags: ['Event', 'Corporate']
     }
+  ],
+  carouselImages: [
+    'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=1920&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1758178309498-036c3d7d73b3?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=987',
+    'https://images.unsplash.com/photo-1757647016230-d6b42abc6cc9?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=2072',
+    'https://images.unsplash.com/photo-1757906447358-f2b2cb23d5d8?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=987',
+    'https://images.unsplash.com/photo-1742201877377-03d18a323c18?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1064',
+    'https://images.unsplash.com/photo-1757081791153-3f48cd8c67ac?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=987',
   ]
 };
