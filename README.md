@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Capture Pixels Website
+
+A Next.js website for Capture Pixels photography, built with TypeScript, Tailwind CSS, and shadcn/ui.
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin Dashboard & Content Editing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The content of the website (hero section, testimonials, projects) is stored in `data/site-content.ts`. This project does not use a database.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To edit content:
 
-## Learn More
+1. **Go to the Admin Dashboard:**
+   Navigate to [http://localhost:3000/admin](http://localhost:3000/admin).
 
-To learn more about Next.js, take a look at the following resources:
+2. **Login:**
+   The default password is `admin123`. 
+   *To change this in production, set the `ADMIN_PASSWORD` environment variable.*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Edit Content:**
+   Use the dashboard forms to update text, links, and image URLs.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Save Changes:**
+   The dashboard **does not save to disk** automatically (for security and simplicity).
+   Instead, click **"Generate JSON Code"** at the top right.
+   Copy the generated code block.
 
-## Deploy on Vercel
+5. **Update the Codebase:**
+   Open `data/site-content.ts` in your code editor and replace the entire content with what you copied.
+   Commit and push the changes to deploy them.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is ready to be deployed on Vercel.
+
+1. Push your code to a Git repository.
+2. Import the project into Vercel.
+3. (Optional) Add `ADMIN_PASSWORD` to Environment Variables.
