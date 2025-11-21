@@ -5,14 +5,14 @@ import SphereImageGrid from '@/components/ui/img-sphere';
 import { useEffect, useState } from 'react';
 
 export default function ClientsSphere({ images }: { images: ClientImage[] }) {
-  const [size, setSize] = useState(600);
+  const [size, setSize] = useState(800);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setSize(340);
+        setSize(400);
       } else {
-        setSize(600);
+        setSize(800);
       }
     };
     
@@ -26,7 +26,7 @@ export default function ClientsSphere({ images }: { images: ClientImage[] }) {
        <SphereImageGrid
          images={images}
          containerSize={size}
-         sphereRadius={size / 2.5}
+         sphereRadius={size / 2.2}
          autoRotate={true}
          dragSensitivity={0.8}
          className="mx-auto"
