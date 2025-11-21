@@ -37,8 +37,11 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  fullDescription?: string; // Extended description for detail view
   imageUrl: string;
+  galleryImages?: string[]; // Additional images for detail view
   date: string;
+  location?: string; // Project location
   tags: string[];
 }
 

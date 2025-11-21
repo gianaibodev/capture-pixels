@@ -1,12 +1,16 @@
 'use client';
 
-import { SiteContent } from '@/data/site-content';
+import { useState } from 'react';
+import { SiteContent, Project } from '@/data/site-content';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { GlowCard } from '@/components/ui/spotlight-card';
+import { ProjectDetailModal } from '@/components/project-detail-modal';
 
 export default function ProjectsSection({ content }: { content: SiteContent }) {
   const { projects } = content;
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section id="projects" className="py-32 bg-muted/30">
@@ -34,7 +38,11 @@ export default function ProjectsSection({ content }: { content: SiteContent }) {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="group"
+              className="group cursor-pointer"
+              onClick={() => {
+                setSelectedProject(p);
+                setIsModalOpen(true);
+              }}
             >
               <GlowCard
                 glowColor={i % 3 === 0 ? 'blue' : i % 3 === 1 ? 'purple' : 'green'}
@@ -73,6 +81,12 @@ export default function ProjectsSection({ content }: { content: SiteContent }) {
             </motion.div>
           ))}
         </div>
+
+        <ProjectDetailModal
+          project={selectedProject}
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+        />
       </div>
     </section>
   );
